@@ -33,6 +33,8 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8080',
     'http://127.0.0.1:58680',
     'http://localhost:58680',
+    'http://127.0.0.1:59257',
+    'http://localhost:59257',
 ]
 
 # Application definition
@@ -124,8 +126,14 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-# Email backend for development
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# Email backend for production - Gmail SMTP
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'samuelmesa04@gmail.com'
+EMAIL_HOST_PASSWORD = 'tczq zixh rvuw tljz'
+DEFAULT_FROM_EMAIL = 'samuelmesa04@gmail.com'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/6.0/ref/settings/#default-auto-field
