@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="card card-custom mb-4">
+            <div class="card-header card-header-custom">
+                <h2 class="mb-0">
+                    <i class="bi bi-house-door"></i> Bienvenido {% if user.is_authenticated %}{{ user.username }}{% endif %}
+                </h2>
+            </div>
+            <div class="card-body p-4">
+                {% if user.is_authenticated %}
+                    <div class="alert bg-light-blue border-primary" role="alert">
+                        <h4 class="alert-heading text-primary-blue">¡Hola de nuevo!</h4>
+                        <p>Has iniciado sesion correctamente. Disfruta de tu experiencia en nuestra plataforma.</p>
+                    </div>
+                    
+                    <div class="row mt-4">
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-primary">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary-blue">Mi Perfil</h5>
+                                    <p class="card-text">Gestiona tu informacion personal y configuracion de cuenta.</p>
+                                    <a href="#" class="btn btn-primary-custom">Ver perfil</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-primary">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary-blue">Dashboard</h5>
+                                    <p class="card-text">Visualiza estadisticas y actividad de tu cuenta.</p>
+                                    <a href="#" class="btn btn-primary-custom">Ir al dashboard</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 border-primary">
+                                <div class="card-body text-center">
+                                    <h5 class="card-title text-primary-blue">Configuracion</h5>
+                                    <p class="card-text">Personaliza tus preferencias y seguridad de la cuenta.</p>
+                                    <a href="#" class="btn btn-primary-custom">Configurar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="text-center py-5">
+                        <h3 class="text-primary-blue mb-3">¡Bienvenido a nuestra plataforma!</h3>
+                        <p class="lead mb-4">Para acceder a todas las funcionalidades, por favor inicia sesion o crea una cuenta nueva.</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <a href="{% url 'login' %}" class="btn btn-primary-custom btn-lg">Iniciar sesion</a>
+                            <a href="{% url 'register' %}" class="btn btn-outline-primary btn-lg">Registrarse</a>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if user.is_authenticated %}
+<div class="row">
+    <div class="col-md-6">
+        <div class="card card-custom mb-4">
+            <div class="card-header card-header-custom">
+                <h5 class="mb-0">Actividad reciente</h5>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Inicio de sesion
+                        <span class="badge bg-primary rounded-pill">Hoy</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Registro de cuenta
+                        <span class="badge bg-secondary rounded-pill">Reciente</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card card-custom mb-4">
+            <div class="card-header card-header-custom">
+                <h5 class="mb-0">Informacion de cuenta</h5>
+            </div>
+            <div class="card-body">
+                <p><strong>Usuario:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email|default:"No especificado" }}</p>
+                <p><strong>Miembro desde:</strong> {{ user.date_joined|date:"d/m/Y" }}</p>
+                <p><strong>Ultimo acceso:</strong> {{ user.last_login|date:"d/m/Y H:i" }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% endblock %}
